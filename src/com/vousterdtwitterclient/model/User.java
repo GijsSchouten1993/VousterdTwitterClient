@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.graphics.Bitmap;
+
 public class User {
 	private String name;
 	private String screen_name;
 	private String profile_image_url;
 	private ArrayList<Tweet> tweets;
-
+	private Bitmap image;
+	
 	public String getName() {
 		return name;
 	}
@@ -21,6 +24,14 @@ public class User {
 
 	public String getScreen_name() {
 		return screen_name;
+	}
+
+	public Bitmap getImage() {
+		return image;
+	}
+
+	public void setImage(Bitmap image) {
+		this.image = image;
 	}
 
 	public void setScreen_name(String screen_name) {
