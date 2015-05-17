@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.vousterdtwitterclient.model.Tweet;
-import com.vousterdtwitterclient.model.User;
 import com.vousterdtwitterclient.view.TwitterAdapter;
 
 public class MainActivity extends ActionBarActivity {
