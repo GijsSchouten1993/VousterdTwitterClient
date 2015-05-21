@@ -49,7 +49,6 @@ public class TwitterAdapter extends ArrayAdapter<Tweet> {
 		
 		List<Hashtag> tags = tempTweet.getTweetEntity().getHashtags();
 		
-	
 		SpannableString spannablecontent = new SpannableString(tempTweet.getText());
 		
 		//Loop door alle hashtags in een tweet en geef deze een opmaak.

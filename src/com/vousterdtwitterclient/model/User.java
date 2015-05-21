@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 
 public class User {
 	private String name;
+	private String id;
 	private String screen_name;
 	private String profile_image_url;
 	private ArrayList<Tweet> tweets;
@@ -26,6 +27,10 @@ public class User {
 		return screen_name;
 	}
 
+	public String getId() {
+		return id;
+	}
+	
 	public Bitmap getImage() {
 		return image;
 	}
@@ -62,11 +67,12 @@ public class User {
 			String profile_image_url = jsonUserObject
 					.getString("profile_image_url");
 			String screen_name = jsonUserObject.getString("screen_name");
+			String id = jsonUserObject.getString("id_str");
 
 			this.name = name;
 			this.screen_name = screen_name;
 			this.profile_image_url = profile_image_url;
-			
+			this.id = id;
 
 		} catch (JSONException e) {
 			e.printStackTrace();
