@@ -71,6 +71,20 @@ public class TwitterModel {
 	}
 	
 	public ArrayList<Tweet> getTweets() {
+		if(tweets.size() == 0)
+		{
+			Tweet objTweet = new Tweet();
+			objTweet.setText("Geen resultaten gevonden");
+			User objUser = new User();
+			objUser.setName("Vousterd");
+			objUser.setProfile_image_url("https://scontent.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/p280x280/10492499_460021894142446_6754136707238186601_n.jpg?oh=a1a5ba56b9f3e95c9499f5f5f0c31332&oe=55C584B8");
+			objTweet.setUser(objUser);
+			objTweet.setCreated_at("Thu In 2015 ");
+			TweetEntity tweEntity = new TweetEntity();
+			objTweet.setTweetEntity(tweEntity);
+			
+			tweets.add(objTweet);
+		}
 		return tweets;
 	}
 	

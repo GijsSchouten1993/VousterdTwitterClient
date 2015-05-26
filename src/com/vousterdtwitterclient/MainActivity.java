@@ -44,15 +44,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.vousterdtwitterclient.model.ApiConnection;
 import com.vousterdtwitterclient.model.Tweet;
 import com.vousterdtwitterclient.model.TwitterModel;
 import com.vousterdtwitterclient.view.TwitterAdapter;
 
 public class MainActivity extends ActionBarActivity {
 	private TwitterModel model;
-	private ImageView twitterImg, vousterdImg;
+	private ImageView twitterImg;
 	private EditText searchHeader;
-	private Button searchBtn, tweetBtn;
+	private Button searchBtn, tweetBtn, profileBtn;
 	private ListView lvTweets;
 	InputStream is = null;
 	String result = null;
@@ -70,12 +71,17 @@ public class MainActivity extends ActionBarActivity {
 		model = ((VousterdApplication) getApplication()).getModel();
 		// Koppel xml-elementen aan variabelen
 		twitterImg = (ImageView) findViewById(R.id.twitterImg);
-		vousterdImg = (ImageView) findViewById(R.id.vousterdImg);
 		lvTweets = (ListView) findViewById(R.id.lvTweets);
 		searchBtn = (Button) findViewById(R.id.searchBtn);
+		tweetBtn = (Button)findViewById(R.id.tweetBtn);
+		profileBtn = (Button)findViewById(R.id.profileBtn);
 		searchHeader = (EditText) findViewById(R.id.searchHeader);
+		
+		//Events
 		searchBtn.setOnClickListener(new searchClickListener());
-
+		profileBtn.setOnClickListener(new ProfileClickListener());
+		tweetBtn.setOnClickListener(new TweetClickListener());
+		
 		String jsonText = null;
 		try {
 			jsonText = readAssetIntoString("test.json");
@@ -131,6 +137,26 @@ public class MainActivity extends ActionBarActivity {
 		}
 
 	}
+	
+	private class ProfileClickListener implements View.OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+		//Ga naar de profiel pagina
+			
+		}
+
+	}
+	
+	private class TweetClickListener implements View.OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			//Ga naar een nieuwe tweet pagina
+			
+		}
+
+	}
 
 	/**
 	 * Reads an asset file and returns a string with the full contents.
@@ -168,43 +194,6 @@ public class MainActivity extends ActionBarActivity {
 		return sb.toString();
 	}
 
-	// Voeg de consumerkey en consumerSecret samen
-	private static String encodeKeys(String consumerKey, String consumerSecret) {
-
-		try {
-			String encodedConsumerKey = URLEncoder.encode(consumerKey, "UTF-8");
-			String encodedConsumerSecret;
-			encodedConsumerSecret = URLEncoder.encode(consumerSecret, "UTF-8");
-
-			String fullKey = encodedConsumerKey + ":" + encodedConsumerSecret;
-
-			return (Base64.encodeToString(fullKey.toString().getBytes(),
-					Base64.NO_WRAP));
-
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
-
-	}
-
-	// Schrijf body in het request
-	private static boolean writeRequest(HttpsURLConnection connection,
-			String textBody) {
-		try {
-			BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(
-					connection.getOutputStream()));
-			wr.write(textBody);
-			wr.flush();
-			wr.close();
-
-			return true;
-		} catch (IOException e) {
-			return false;
-		}
-	}
-
 	// Haal de response van een request op en return de body als string
 	private static String readResponse(HttpsURLConnection connection) {
 		try {
@@ -220,59 +209,6 @@ public class MainActivity extends ActionBarActivity {
 		} catch (IOException e) {
 			return new String();
 		}
-	}
-
-	@SuppressLint("NewApi")
-	private void WriteToApiProperties(String content) {
-
-		ClassLoader classLoader = getClass().getClassLoader();
-		URL lol = classLoader.getResource("apiconfig.properties");
-		Log.d("VOUSTERD", lol.toString());
-		File configFile = new File(lol.getFile());
-
-		try {
-			Properties props = new Properties();
-			props.setProperty("bearertoken", content);
-			FileOutputStream fileOut = new FileOutputStream(configFile);
-			props.store(fileOut, "Aangepast");
-			fileOut.close();
-		} catch (FileNotFoundException ex) {
-			Log.d("VOUSTERD", ex.getMessage());
-		} catch (IOException ex) {
-			// I/O error
-		}
-
-	}
-
-	@SuppressLint("NewApi")
-	private String ReadFromApiProperties() {
-
-		Properties prop = new Properties();
-		String propFileName = "apiconfig.properties";
-
-		InputStream inputStream = getClass().getClassLoader()
-				.getResourceAsStream(propFileName);
-
-		if (inputStream != null) {
-			try {
-				prop.load(inputStream);
-			} catch (IOException e) {
-				return "";
-			}
-		} else {
-			try {
-				throw new FileNotFoundException("property file '"
-						+ propFileName + "' not found in the classpath");
-
-			} catch (FileNotFoundException e) {
-				return "";
-			}
-		}
-
-		// get the property value and print it out
-		String token = prop.getProperty("bearertoken");
-
-		return token;
 	}
 
 	private String getResponseBody(HttpRequestBase request) {
@@ -310,14 +246,6 @@ public class MainActivity extends ActionBarActivity {
 
 	private class asyncTweets extends AsyncTask<String, Void, String> {
 
-		private String CONSUMER_KEY = "nPOmUQZGrLzaWThuod9YJwoBD";
-		private String CONSUMER_SECRET = "AYhS9S4eLfLgp5EhGmSnbmjC587hIZ37tYjjcuGBgHnwMuCPa0";
-
-		private String ACCESS_TOKEN = "318650666-ulmXnpcfXjVdjpYGK5ULutBWBYXD4zMS8ICfMH7x";
-		private String TOKEN_SECRET = "d2hOWpyJ9HywjRBbkqwkBcoE4oHNcv7YbqdF7IwPwA9Hu";
-
-		private String OAUTH2BEARERTOKENURL = "https://api.twitter.com/oauth2/token";
-
 		@Override
 		protected String doInBackground(String... params) {
 
@@ -325,51 +253,30 @@ public class MainActivity extends ActionBarActivity {
 			if (urlText.equals("")) {
 				return "";
 			}
-			URL url;
-			String encodedCredentials = encodeKeys(CONSUMER_KEY,
-					CONSUMER_SECRET);
+
+			ApiConnection conn = new ApiConnection();
+
 			Log.d("VOUSTERD", "Begin met request ");
 
-			HttpsURLConnection connection = null;
 			try {
 
-				// Haal de bearer token op uit het tekstbestand
-				String bearer = ReadFromApiProperties();
-				Log.d("VOUSTERD", bearer);
-				// Bearer token bestaat nog niet haal een nieuwe bearer op en
-				// sla deze op in het tekstbestand
-				if (bearer == null || bearer.length() == 0) {
-					// Voeg de public key en private samen
+				String bearer = "";
 
-					url = new URL(OAUTH2BEARERTOKENURL);
-					connection = (HttpsURLConnection) url.openConnection();
-					connection.setDoOutput(true);
-					connection.setDoInput(true);
-					connection.setRequestMethod("POST");
-					connection.setRequestProperty("Host", "api.twitter.com");
-					connection.setRequestProperty("User-Agent", "Vousterd");
-					connection.setRequestProperty("Authorization", "Basic "
-							+ encodedCredentials);
-					connection.setRequestProperty("Content-Type",
-							"application/x-www-form-urlencoded;charset=UTF-8");
-					connection.setUseCaches(false);
+				// Bearer token bestaat nog niet haal een nieuwe bearer op
+				HttpsURLConnection bearerConn = conn
+						.buildBearerHttpsUrlConnection();
 
-					// Schrijf weg naar body
-					writeRequest(connection, "grant_type=client_credentials");
+				// Haal de json op van het request
+				String jsonFromRequest = readResponse(bearerConn);
 
-					// Haal de json op van het request
-					String jsonFromRequest = readResponse(connection);
+				JSONObject obj = new JSONObject(jsonFromRequest);
 
-					JSONObject obj = new JSONObject(jsonFromRequest);
+				if (obj != null) {
+					String tokenType = (String) obj.get("token_type");
+					String token = (String) obj.get("access_token");
 
-					if (obj != null) {
-						String tokenType = (String) obj.get("token_type");
-						String token = (String) obj.get("access_token");
-
-						String bearerText = ((tokenType.equals("bearer")) && (token != null)) ? token
-								: "";
-						WriteToApiProperties(bearerText);
-					}
+					bearer = ((tokenType.equals("bearer")) && (token != null)) ? token
+							: "";
 				}
 
 				// Maak http request aan
@@ -384,16 +291,9 @@ public class MainActivity extends ActionBarActivity {
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (connection != null) {
-					connection.disconnect();
-				}
+			} 
+			 finally {
+				
 			}
 			return null;
 		}

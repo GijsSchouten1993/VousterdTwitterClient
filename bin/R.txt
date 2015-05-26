@@ -377,6 +377,7 @@ int id middle 0x7f050013
 int id never 0x7f05000b
 int id none 0x7f050004
 int id normal 0x7f050001
+int id profileBtn 0x7f050044
 int id progress_circular 0x7f05001c
 int id progress_horizontal 0x7f05001d
 int id radio 0x7f05002b
@@ -407,7 +408,6 @@ int id tweeterNameTxt 0x7f050047
 int id twitterImg 0x7f050040
 int id up 0x7f050016
 int id useLogo 0x7f050005
-int id vousterdImg 0x7f050044
 int id withText 0x7f05000e
 int id wrap_content 0x7f050000
 int integer abc_max_action_buttons 0x7f090000
@@ -458,6 +458,7 @@ int string action_settings 0x7f0a0012
 int string app_name 0x7f0a0010
 int string dateTxt 0x7f0a0017
 int string hello_world 0x7f0a0011
+int string profileBtn 0x7f0a0018
 int string searchHeader 0x7f0a0013
 int string tweetBtn 0x7f0a0014
 int string tweetTxt 0x7f0a0016

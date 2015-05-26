@@ -38,6 +38,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.8"
+            android:background="#4099FF"
+            android:textColor="@android:color/white"
             android:text="@string/searchHeader" />
 
     </LinearLayout>
@@ -53,20 +55,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <ImageView
-            android:id="@+id/vousterdImg"
+        <Button
+            android:id="@+id/profileBtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:layout_marginRight="175dp"
-            android:src="@drawable/ic_launcher" />
+            android:background="#4099FF"
+            android:text="@string/profileBtn"
+            android:textAlignment="center"
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/tweetBtn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:text="@string/tweetBtn" />
+            android:background="#19B55A"
+            android:text="@string/tweetBtn"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 

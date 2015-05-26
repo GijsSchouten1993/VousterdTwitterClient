@@ -5,9 +5,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="searchHeader">Search</string>
-    <string name="tweetBtn">Tweet</string>
+    <string name="tweetBtn">TWEET</string>
     <string name="tweeterNameTxt">Name</string>
     <string name="tweetTxt">TweetMessage</string>
     <string name="dateTxt">Date</string>
+    <string name="profileBtn">PROFIEL</string>
 
 </resources>

@@ -34,7 +34,7 @@ public class Tweet {
 			shortedDate += date[i];
 			shortedDate += "\n";
 		}
-		return shortedDate;
+		return shortedDate.trim();
 	}
 
 	public User getUser() {
@@ -65,4 +65,13 @@ public class Tweet {
 
 	}
 
+	public Tweet()
+	{
+		
+	}
+
+	public void setTweetEntity(TweetEntity tweetEntity) {
+		this.tweetEntity = tweetEntity;
+	}
+	
 }

@@ -63,6 +63,10 @@ public class TweetEntity {
 		}
 
 	}
-
+	
+	public TweetEntity()
+	{
+		
+	}
 
 }

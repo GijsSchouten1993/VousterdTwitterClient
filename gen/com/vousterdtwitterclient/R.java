@@ -1678,6 +1678,7 @@ containing a value of this type.
         public static final int never=0x7f05000b;
         public static final int none=0x7f050004;
         public static final int normal=0x7f050001;
+        public static final int profileBtn=0x7f050044;
         public static final int progress_circular=0x7f05001c;
         public static final int progress_horizontal=0x7f05001d;
         public static final int radio=0x7f05002b;
@@ -1708,7 +1709,6 @@ containing a value of this type.
         public static final int twitterImg=0x7f050040;
         public static final int up=0x7f050016;
         public static final int useLogo=0x7f050005;
-        public static final int vousterdImg=0x7f050044;
         public static final int withText=0x7f05000e;
         public static final int wrap_content=0x7f050000;
     }
@@ -1829,6 +1829,7 @@ containing a value of this type.
         public static final int app_name=0x7f0a0010;
         public static final int dateTxt=0x7f0a0017;
         public static final int hello_world=0x7f0a0011;
+        public static final int profileBtn=0x7f0a0018;
         public static final int searchHeader=0x7f0a0013;
         public static final int tweetBtn=0x7f0a0014;
         public static final int tweetTxt=0x7f0a0016;
