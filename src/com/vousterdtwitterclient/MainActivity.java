@@ -194,22 +194,7 @@ public class MainActivity extends ActionBarActivity {
 		return sb.toString();
 	}
 
-	// Haal de response van een request op en return de body als string
-	private static String readResponse(HttpsURLConnection connection) {
-		try {
-			StringBuilder str = new StringBuilder();
-
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					connection.getInputStream()));
-			String line = "";
-			while ((line = br.readLine()) != null) {
-				str.append(line + System.getProperty("line.separator"));
-			}
-			return str.toString();
-		} catch (IOException e) {
-			return new String();
-		}
-	}
+	
 
 	private String getResponseBody(HttpRequestBase request) {
 		StringBuilder sb = new StringBuilder();
@@ -267,7 +252,7 @@ public class MainActivity extends ActionBarActivity {
 						.buildBearerHttpsUrlConnection();
 
 				// Haal de json op van het request
-				String jsonFromRequest = readResponse(bearerConn);
+				String jsonFromRequest = ApiConnection.readResponse(bearerConn);
 
 				JSONObject obj = new JSONObject(jsonFromRequest);
 

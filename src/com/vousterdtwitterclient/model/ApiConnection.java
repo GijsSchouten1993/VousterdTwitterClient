@@ -1,7 +1,9 @@
 package com.vousterdtwitterclient.model;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -16,11 +18,11 @@ import android.util.Base64;
 
 public class ApiConnection {
 
-	private String CONSUMER_KEY = "nPOmUQZGrLzaWThuod9YJwoBD";
-	private String CONSUMER_SECRET = "AYhS9S4eLfLgp5EhGmSnbmjC587hIZ37tYjjcuGBgHnwMuCPa0";
+	private final String CONSUMER_KEY = "nPOmUQZGrLzaWThuod9YJwoBD";
+	private final String CONSUMER_SECRET = "AYhS9S4eLfLgp5EhGmSnbmjC587hIZ37tYjjcuGBgHnwMuCPa0";
 
-	private String ACCESS_TOKEN = "318650666-ulmXnpcfXjVdjpYGK5ULutBWBYXD4zMS8ICfMH7x";
-	private String TOKEN_SECRET = "d2hOWpyJ9HywjRBbkqwkBcoE4oHNcv7YbqdF7IwPwA9Hu";
+	private final String ACCESS_TOKEN = "318650666-ulmXnpcfXjVdjpYGK5ULutBWBYXD4zMS8ICfMH7x";
+	private final String TOKEN_SECRET = "d2hOWpyJ9HywjRBbkqwkBcoE4oHNcv7YbqdF7IwPwA9Hu";
 
 	private String OAUTH2BEARERTOKENURL = "https://api.twitter.com/oauth2/token";
 
@@ -96,4 +98,21 @@ public class ApiConnection {
 		}
 	}
 
+	
+	// Haal de response van een request op en return de body als string
+		public static String readResponse(HttpsURLConnection connection) {
+			try {
+				StringBuilder str = new StringBuilder();
+
+				BufferedReader br = new BufferedReader(new InputStreamReader(
+						connection.getInputStream()));
+				String line = "";
+				while ((line = br.readLine()) != null) {
+					str.append(line + System.getProperty("line.separator"));
+				}
+				return str.toString();
+			} catch (IOException e) {
+				return new String();
+			}
+		}
 }
